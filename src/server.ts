@@ -35,7 +35,7 @@ const swaggerOptions = {
             },
             {
                 name: 'Forum',
-                description: 'Rutas relacionadas con el forum'
+                description: 'Rutas relacionadas con el foro'
             },
             {
                 name: 'Main',
@@ -105,16 +105,23 @@ chatIO.on('connection', (socket) => {
 
     socket.on('error', (err) => {
         if (err && err.message == 'unauthorized') {
-            console.debug('unauthorized user');
+            console.debug('Usuario no autorizado');
             socket.emit('status', { status: 'unauthorized' });
             socket.disconnect();
         }
     });
 
     // Manejar evento para unirse a una sala
-    socket.on('join_room', (roomId: string) => {
+    socket.on('join_room', ({ roomId, username }) => {
         socket.join(roomId);
-        console.log(`Usuario con ID: ${socket.id} se unió a la sala: ${roomId}`);
+        console.log(`Usuario con ID: ${socket.id}, y con Nombre: ${username} se unió a la sala: ${roomId}`);
+
+        // Emitir notificación a todos los usuarios en la sala de que un nuevo usuario se unió
+        chatIO.to(roomId).emit('user_connected', {
+            message: `${username} se ha unido a la sala.`,
+            userId: socket.id,
+            username: username
+        });
     });
 
     // Manejar evento para enviar un mensaje

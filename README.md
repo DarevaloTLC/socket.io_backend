@@ -47,3 +47,6 @@ http://localhost:9000/api-docs
 
 En este seminario me he guiado de copilot para que me ayude a ser mas rapido a la hora de escribir codigo, de crearme los JSON para probarlos con POSTMAN, para entender el codigo etc. También he adaptado el codigo que ya tenia creado en el proyecto que tenemos demomento. He repasado e interiorizado conceptos. 
 
+## Referencies exercici
+
+presentació seminari web-socket, tutorials youtube i chatgpt
